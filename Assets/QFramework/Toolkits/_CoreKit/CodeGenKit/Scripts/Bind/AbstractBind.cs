@@ -42,7 +42,7 @@ namespace QFramework
                     {
                         mComponentName = GetDefaultComponentName();
                     }
-                    else if (!GetComponent(mComponentName) && !GetComponent(mComponentName.Split('.').Last()))
+                    else if (!GetComponent(mComponentName) && mComponentName != typeof(GameObject).FullName && !GetComponent(mComponentName.Split('.').Last()))
                     {
                         mComponentName = GetDefaultComponentName();
                     }

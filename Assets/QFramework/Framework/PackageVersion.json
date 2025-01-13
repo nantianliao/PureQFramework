@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.170",
+    "Version": "v1.0.173",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.170",
-        "content": "CodeGenKit: ViewController 父类支持生成抽象类和抽象方法",
+        "version": "v1.0.173",
+        "content": "CodeGenKit：Bind 支持 GameObject 类型",
         "author": "liangxie",
-        "date": "2025 年 01 月 07 日 13:11",
+        "date": "2025 年 01 月 10 日 16:44",
         "PackageId": ""
     }
 }

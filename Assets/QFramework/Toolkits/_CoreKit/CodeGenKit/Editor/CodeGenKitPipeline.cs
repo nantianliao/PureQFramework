@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2015 ~ 2025 liangxiegame UNDER MIT LICENSE
- * 
+ *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
@@ -82,8 +82,8 @@ namespace QFramework
 
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly =>
                     !assembly.FullName.StartsWith("Unity"));
-                
-                var typeName =  generateNamespace + "." + generateClassName;
+
+                var typeName = generateNamespace + "." + generateClassName;
 
                 var type = assemblies.Where(a => a.GetType(typeName) != null)
                     .Select(a => a.GetType(typeName)).FirstOrDefault();
@@ -97,7 +97,7 @@ namespace QFramework
                 Debug.Log(type);
 
                 var gameObject = CurrentTask.GameObject;
-                
+
                 var scriptComponent = gameObject.GetComponent(type);
 
                 if (!scriptComponent)
@@ -106,19 +106,11 @@ namespace QFramework
                 }
 
                 var serializedObject = new SerializedObject(scriptComponent);
-                
+
                 foreach (var bindInfo in CurrentTask.BindInfos)
                 {
-                    var componentName = bindInfo.TypeName.Split('.').Last();
                     var serializedProperty = serializedObject.FindProperty(bindInfo.MemberName);
-                    var component = gameObject.transform.Find(bindInfo.PathToRoot).GetComponent(componentName);
-
-                    if (!component)
-                    {
-                        component = gameObject.transform.Find(bindInfo.PathToRoot).GetComponent(bindInfo.TypeName);
-                    }
-
-                    serializedProperty.objectReferenceValue = component;
+                    serializedProperty.objectReferenceValue = gameObject.transform.Find(bindInfo.PathToRoot).gameObject;
                 }
 
                 var referenceBinds = gameObject.GetComponent<OtherBinds>();
@@ -140,8 +132,9 @@ namespace QFramework
                     serializedObject.FindProperty("GeneratePrefab").boolValue = codeGenerateInfo.GeneratePrefab;
                     serializedObject.FindProperty("ScriptName").stringValue = codeGenerateInfo.ScriptName;
                     serializedObject.FindProperty("Namespace").stringValue = codeGenerateInfo.Namespace;
-                    serializedObject.FindProperty("ArchitectureFullTypeName").stringValue = codeGenerateInfo.ArchitectureFullTypeName;
-                    
+                    serializedObject.FindProperty("ArchitectureFullTypeName").stringValue =
+                        codeGenerateInfo.ArchitectureFullTypeName;
+
                     var generatePrefab = codeGenerateInfo.GeneratePrefab;
                     var prefabFolder = codeGenerateInfo.PrefabFolder;
 
@@ -160,7 +153,7 @@ namespace QFramework
                         var generatePrefabPath = prefabFolder + "/" + gameObject.name + ".prefab";
 
                         if (File.Exists(generatePrefabPath))
-                        { 
+                        {
                             // PrefabUtility.SavePrefabAsset(gameObject);
                         }
                         else
@@ -175,9 +168,9 @@ namespace QFramework
                     serializedObject.ApplyModifiedProperties();
                     serializedObject.UpdateIfRequiredOrScript();
                 }
-                
+
                 EditorUtility.SetDirty(gameObject);
-                
+
                 CurrentTask.Status = CodeGenTaskStatus.Complete;
                 CurrentTask = null;
             }
