@@ -22,7 +22,7 @@
  * Community
  *  QQ Group: 623597263
  * 
- * Latest Update: 2024.5.12 20:17 add UnRegisterWhenCurrentSceneUnloaded(Suggested by misakiMeiii) 
+ * Latest Update: 2025.3.18 10:21 add InitArchitecture api
  ****************************************************************************/
 
 using System;
@@ -77,13 +77,13 @@ namespace QFramework
         {
             get
             {
-                if (mArchitecture == null) MakeSureArchitecture();
+                if (mArchitecture == null) InitArchitecture();
                 return mArchitecture;
             }
         }
 
 
-        static void MakeSureArchitecture()
+        public static void InitArchitecture()
         {
             if (mArchitecture == null)
             {
@@ -946,4 +946,12 @@ namespace QFramework
     }
 
     #endregion
+
+#if UNITY_EDITOR
+    internal class EditorMenus
+    {
+        [UnityEditor.MenuItem("QFramework/QFramework Website")]
+        public static void InstallPackageKit() => UnityEngine.Application.OpenURL("https://qframework.cn/qf");
+    }
+#endif
 }

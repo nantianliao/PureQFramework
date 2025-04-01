@@ -43,6 +43,11 @@ namespace QFramework
                 var parentClassName = hasParent ? viewController.ViewControllerFullTypeName : "ViewController";
                 ns.Class(task.ClassName, parentClassName, true, false, cs =>
                 {
+                    if (parentClassName == "ViewController")
+                    {
+                        cs.CustomScope("void Start()", false, scope => { scope.Custom("// Code Here"); });
+                    }
+
                     if (hasParent)
                     {
                         var parentType = ViewControllerInspector.SearchAllViewControllerTypes().FirstOrDefault(t =>
@@ -102,7 +107,6 @@ namespace QFramework
                             }
                         }
 
-                        cs.CustomScope("void Start()", false, scope => { scope.Custom("// Code Here"); });
 
                         if (parentType != null)
                         {

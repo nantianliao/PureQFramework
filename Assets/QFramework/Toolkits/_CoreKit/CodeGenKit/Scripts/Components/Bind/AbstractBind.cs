@@ -108,8 +108,8 @@ namespace QFramework
             // if (GetComponent("Empty4Raycast")) return "QFramework.Empty4Raycast";
             if (GetComponent<RectTransform>()) return "RectTransform";
             if (GetComponent<MeshRenderer>()) return "MeshRenderer";
-
             if (GetComponent<SpriteRenderer>()) return "SpriteRenderer";
+            if (GetComponent<ParticleSystem>()) return "ParticleSystem";
 
             // NGUI 支持
 #if NGUI
