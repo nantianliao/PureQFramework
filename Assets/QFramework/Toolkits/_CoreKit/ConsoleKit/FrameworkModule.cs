@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 
 namespace QFramework
@@ -12,17 +13,18 @@ namespace QFramework
 
             if (GUILayout.Button("Clear All Data & Quit"))
             {
+                PlayerPrefs.DeleteAll();
+                Directory.Delete(Application.persistentDataPath, true);
                 Quit();
             }
         }
-        
+
         public static void Quit()
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-            UnityEditor.EditorApplication.isPlaying = false;
 #else
-                Application.Quit ();
+            Application.Quit ();
 #endif
         }
     }
